@@ -6,10 +6,10 @@ import path from "path";
 import { createServer } from "http";
 
 // routes
-import authRoutes from "./routes/authRoutes.js";
-import userRoutes from "./routes/userRoutes.js";
-import matchRoutes from "./routes/matchRoutes.js";
-import messageRoutes from "./routes/messageRoutes.js";
+import authRoutes from "./routes/auth.route.js";
+import userRoutes from "./routes/user.route.js";
+import matchRoutes from "./routes/match.route.js";
+import messageRoutes from "./routes/message.route.js";
 
 import { connectDB } from "./config/db.js";
 import { initializeSocket } from "./socket/socket.server.js";
