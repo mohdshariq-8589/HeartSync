@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Header } from "../components/Header";
 import { useAuthStore } from "../store/useAuthStore";
 import { useMatchStore } from "../store/useMatchStore";
 import { useMessageStore } from "../store/useMessageStore";
 import { Link, useParams } from "react-router-dom";
 import { Loader, UserX } from "lucide-react";
+import { motion } from "framer-motion";
 import MessageInput from "../components/MessageInput";
 
 const ChatPage = () => {
@@ -16,8 +17,9 @@ const ChatPage = () => {
     unsubscribeFromMessages,
   } = useMessageStore();
   const { authUser } = useAuthStore();
-
   const { id } = useParams();
+  const [isTyping, setIsTyping] = useState(false);
+  const chatEndRef = useRef(null);
 
   const match = matches.find((m) => m?._id === id);
 
@@ -27,7 +29,6 @@ const ChatPage = () => {
       getMessages(id);
       subscribeToMessages();
     }
-
     return () => {
       unsubscribeFromMessages();
     };
@@ -39,6 +40,10 @@ const ChatPage = () => {
     unsubscribeFromMessages,
     id,
   ]);
+
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
 
   if (isLoadingMyMatches) return <LoadingMessagesUI />;
   if (!match) return <MatchNotFound />;
@@ -63,14 +68,17 @@ const ChatPage = () => {
             </p>
           ) : (
             messages.map((msg) => (
-              <div
+              <motion.div
                 key={msg._id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.2 }}
                 className={`mb-3 ${
                   msg.sender === authUser._id ? "text-right" : "text-left"
                 }`}
               >
                 <span
-                  className={`inline-block p-3 rounded-lg max-w-xs lg:max-w-md ${
+                  className={`inline-block p-3 rounded-lg max-w-xs lg:max-w-md shadow-md transition-all duration-200 hover:scale-105 ${
                     msg.sender === authUser._id
                       ? "bg-pink-500 text-white"
                       : "bg-gray-200 text-gray-800"
@@ -78,15 +86,21 @@ const ChatPage = () => {
                 >
                   {msg.content}
                 </span>
-              </div>
+              </motion.div>
             ))
           )}
+          {isTyping && (
+            <p className="text-gray-500 italic">{match.name} is typing...</p>
+          )}
+          <div ref={chatEndRef}></div>
         </div>
-        <MessageInput match={match} />
+
+        <MessageInput match={match} setIsTyping={setIsTyping} />
       </div>
     </div>
   );
 };
+
 export default ChatPage;
 
 const MatchNotFound = () => (
@@ -101,8 +115,7 @@ const MatchNotFound = () => (
       </p>
       <Link
         to="/"
-        className="mt-6 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition-colors 
-				focus:outline-none focus:ring-2 focus:ring-pink-300 inline-block"
+        className="mt-6 px-4 py-2 bg-pink-500 text-white rounded hover:bg-pink-600 transition-colors focus:outline-none focus:ring-2 focus:ring-pink-300 inline-block"
       >
         Go Back To Home
       </Link>

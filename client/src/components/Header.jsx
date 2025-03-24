@@ -22,7 +22,7 @@ export const Header = () => {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-pink-500 via-pink-600 to-pink-700 shadow-lg">
+    <header className="bg-gradient-to-r from-pink-700 via-pink-500 to-pink-300 shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
@@ -103,7 +103,7 @@ export const Header = () => {
       {/* MOBILE MENU */}
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-pink-600">
+        <div className="md:hidden from-purple-500 via-pink-600 to-red-500">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {authUser ? (
               <>
