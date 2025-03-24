@@ -1,6 +1,6 @@
 import TinderCard from "react-tinder-card";
 import { useMatchStore } from "../store/useMatchStore";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes, FaStar, FaHeart } from "react-icons/fa";
 
@@ -8,6 +8,7 @@ const SwipeArea = () => {
   const { userProfiles, swipeRight, swipeLeft } = useMatchStore();
   const [swipeDirection, setSwipeDirection] = useState(null);
   const [activeUser, setActiveUser] = useState(null);
+  const cardRefs = useRef({}); // Har card ka ref store karne ke liye
 
   const handleSwipe = (dir, user) => {
     setSwipeDirection(dir);
@@ -21,10 +22,18 @@ const SwipeArea = () => {
     }, 500);
   };
 
+  // Swipe trigger function (buttons ke liye)
+  const triggerSwipe = (dir, userId) => {
+    if (cardRefs.current[userId]) {
+      cardRefs.current[userId].swipe(dir);
+    }
+  };
+
   return (
     <div className="relative flex justify-center items-center h-[34rem]">
       {userProfiles.map((user) => (
         <TinderCard
+          ref={(el) => (cardRefs.current[user._id] = el)} // Unique ref for each card
           className="absolute shadow-none"
           key={user._id}
           onSwipe={(dir) => handleSwipe(dir, user)}
@@ -54,12 +63,12 @@ const SwipeArea = () => {
               />
               <div className="absolute bottom-0 w-full h-[50px] bg-gradient-to-t from-black to-transparent opacity-70"></div>
 
-              {/* Buttons on Image */}
+              {/* Functional Buttons on Image */}
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-4">
                 <motion.button
                   className="p-3 bg-white bg-opacity-30 backdrop-blur-md rounded-full shadow-lg hover:scale-110 transition"
                   whileTap={{ scale: 0.8 }}
-                  onClick={() => handleSwipe("left", user)}
+                  onClick={() => triggerSwipe("left", user._id)}
                 >
                   <FaTimes className="text-red-500 text-xl" />
                 </motion.button>
@@ -74,7 +83,7 @@ const SwipeArea = () => {
                 <motion.button
                   className="p-3 bg-white bg-opacity-30 backdrop-blur-md rounded-full shadow-lg hover:scale-110 transition"
                   whileTap={{ scale: 0.8 }}
-                  onClick={() => handleSwipe("right", user)}
+                  onClick={() => triggerSwipe("right", user._id)}
                 >
                   <FaHeart className="text-green-500 text-xl" />
                 </motion.button>
