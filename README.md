@@ -51,13 +51,13 @@ VITE_API_BASE_URL=your_api_base_url
 ## Run the Application
 Start the backend server:
 ```sh
-npm start
+npm run dev
 ```
 
 Start the frontend server:
 ```sh
 cd client
-npm start
+npm run dev
 ```
 
 Open your browser and navigate to [http://localhost:5173](http://localhost:5173).
