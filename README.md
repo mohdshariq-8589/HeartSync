@@ -1,7 +1,7 @@
 # HashSync
 Welcome to **HashSync**, a modern dating application built with the MERN stack (MongoDB, Express.js, React, Node.js). Inspired by Tinder, HashSync offers a seamless and engaging experience for users looking to connect with potential matches through an interactive and feature-rich platform.
 
-Check it out here: Live Demo
+Check it out here: https://heartsync-vr3i.onrender.com
 
 ## Table of Contents
 - Features
