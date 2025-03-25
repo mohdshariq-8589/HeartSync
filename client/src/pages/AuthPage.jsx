@@ -9,7 +9,11 @@ const AuthPage = () => {
   return (
     <div
       className="min-h-screen flex items-center justify-center bg-cover bg-center relative"
+<<<<<<< HEAD
       style={{ backgroundImage: "url('/png1.jpg')" }} // ✅ Background Image Added
+=======
+      style={{ backgroundImage: "url('/public/png1.jpg')" }} // ✅ Background Image Added
+>>>>>>> 3e133064114b298ee1f50a1bdddf43aa83b7d3b9
     >
       {/* Dark Overlay for Better Visibility */}
       <div className="absolute inset-0 bg-black/50 backdrop-blur-md"></div>
