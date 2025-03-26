@@ -18,7 +18,7 @@ const LoginForm = () => {
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-300"
         >
           Email address
         </label>
@@ -31,7 +31,7 @@ const LoginForm = () => {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+            className="appearance-none block w-full px-3 py-2 border bg-transparent border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 font-semibold sm:text-sm "
           />
         </div>
       </div>
@@ -39,7 +39,7 @@ const LoginForm = () => {
       <div>
         <label
           htmlFor="password"
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-300"
         >
           Password
         </label>
@@ -52,7 +52,7 @@ const LoginForm = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 sm:text-sm"
+            className="appearance-none block w-full px-3 py-2 border bg-transparent border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-pink-500 focus:border-pink-500 font-semibold sm:text-sm "
           />
         </div>
       </div>
