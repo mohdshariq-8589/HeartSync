@@ -6,62 +6,91 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const maleNames = [
-  "James",
-  "John",
-  "Robert",
-  "Michael",
-  "William",
-  "David",
-  "Richard",
-  "Joseph",
-  "Thomas",
+  "Aarav",
+  "Vivaan",
+  "Aditya",
+  "Arjun",
+  "Rohan",
+  "Krishna",
+  "Kunal",
+  "Raj",
+  "Vikram",
+  "Siddharth",
+  "Manish",
+  "Uday",
+  "Kartik",
+  "Suresh",
+  "Amit",
+  "Prakash",
+  "Harsh",
+  "Jayesh",
+  "Varun",
+  "Yash",
+  "Deepak",
+  "Sandeep",
+  "Naveen",
+  "Rahul",
+  "Ravi",
 ];
 
 const femaleNames = [
-  "Mary",
-  "Patricia",
-  "Jennifer",
-  "Linda",
-  "Elizabeth",
-  "Barbara",
-  "Susan",
-  "Jessica",
-  "Sarah",
-  "Karen",
-  "Nancy",
-  "Lisa",
+  "Aanya",
+  "Diya",
+  "Isha",
+  "Kavya",
+  "Pooja",
+  "Ritika",
+  "Sanya",
+  "Neha",
+  "Simran",
+  "Tanya",
+  "Meera",
+  "Swati",
+  "Anjali",
+  "Bhavana",
+  "Roshni",
+  "Priya",
+  "Sneha",
+  "Nisha",
+  "Suman",
+  "Jhanvi",
+  "Aditi",
+  "Sakshi",
+  "Payal",
+  "Komal",
+  "Chitra",
 ];
 
 const genderPreferences = ["male", "female", "both"];
 
 const bioDescriptors = [
-  "Coffee addict",
-  "Cat lover",
-  "Dog person",
+  "Coffee lover",
+  "Tech geek",
   "Foodie",
-  "Gym rat",
+  "Traveler",
   "Bookworm",
+  "Fitness freak",
   "Movie buff",
-  "Music lover",
-  "Travel junkie",
-  "Beach bum",
-  "City slicker",
-  "Outdoor enthusiast",
-  "Netflix binger",
-  "Yoga enthusiast",
-  "Craft beer connoisseur",
-  "Sushi fanatic",
-  "Adventure seeker",
+  "Music enthusiast",
+  "Pet lover",
+  "Nature explorer",
+  "Startup enthusiast",
+  "Gamer",
+  "Yoga lover",
   "Night owl",
-  "Early bird",
-  "Aspiring chef",
+  "Early riser",
+  "Adventurous spirit",
+  "Poetry lover",
+  "Anime fan",
+  "Chess master",
+  "Cricket fan",
 ];
 
 const generateBio = () => {
-  const descriptors = bioDescriptors
-    .sort(() => 0.5 - Math.random())
-    .slice(0, 3);
-  return descriptors.join(" | ");
+  return bioDescriptors
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 3)
+    .join(" | ");
 };
 
 const generateRandomUser = (gender, index) => {
@@ -84,7 +113,6 @@ const generateRandomUser = (gender, index) => {
 const seedUsers = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
-
     await User.deleteMany({});
 
     const maleUsers = maleNames.map((_, i) => generateRandomUser("male", i));
@@ -93,10 +121,8 @@ const seedUsers = async () => {
     );
 
     const allUsers = [...maleUsers, ...femaleUsers];
-
     await User.insertMany(allUsers);
-
-    console.log("Database seeded successfully with users having concise bios");
+    console.log("Database seeded successfully with 50 Indian users");
   } catch (error) {
     console.error("Error seeding database:", error);
   } finally {
